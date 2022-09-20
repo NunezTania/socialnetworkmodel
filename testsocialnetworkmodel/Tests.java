@@ -1,10 +1,9 @@
-package testsocialnetworkmodel;
-
-import NUnit.Framework.*;
-import SocialNetworkModel.*;
-import socialnetworkmodel.Twitter;
+package socialnetworkmodel.testsocialnetworkmodel;
+import socialnetworkmodel.*;
 
 import java.util.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 //C# TO JAVA CONVERTER TODO TASK: Java annotations will not correspond to .NET attributes:
 //ORIGINAL LINE: [TestFixture] public class Tests
@@ -35,7 +34,7 @@ public class Tests
 		//event is called directly by the assertion
 
 		//when
-		assert exceptedAmountOfObservers == _twitter.Observers.Count;
+		assert exceptedAmountOfObservers == _twitter.getObservers().size();
 
 	}
 
@@ -51,7 +50,7 @@ public class Tests
 		//event is called directly by the assertion
 
 		//when
-		assert exceptedAmountOfObservers == _twitter.Observers.Count;
+		assert exceptedAmountOfObservers == _twitter.getObservers().size();
 	}
 
 //C# TO JAVA CONVERTER TODO TASK: Java annotations will not correspond to .NET attributes:
@@ -66,7 +65,7 @@ public class Tests
 		//event is called directly by the assertion
 
 		//when
-		assert exceptedAmountOfTwits == _twitter.Twits.Count;
+		assert exceptedAmountOfTwits == _twitter.getTwits().size();
 	}
 
 //C# TO JAVA CONVERTER TODO TASK: Java annotations will not correspond to .NET attributes:
@@ -80,10 +79,8 @@ public class Tests
 		//event is called directly by the assertion
 
 		//then
-		Assert.<EmptyListOfSubscribersException>Throws(() ->
-		{
-				_twitter.Notify();
-		});
+
+		assertThrows(EmptyListOfSubscribersException.class, () -> _twitter.Notify());
 	}
 
 //C# TO JAVA CONVERTER TODO TASK: Java annotations will not correspond to .NET attributes:
@@ -99,7 +96,7 @@ public class Tests
 		_twitter.Subscribe(followers);
 
 		//then
-		assert expectedAmountOfSubscribers == _twitter.Observers.Count;
+		assert expectedAmountOfSubscribers == _twitter.getObservers().size();
 	}
 
 //C# TO JAVA CONVERTER TODO TASK: Java annotations will not correspond to .NET attributes:
@@ -117,7 +114,7 @@ public class Tests
 		_twitter.Subscribe(followers2nd);
 
 		//then
-		assert expectedAmountOfSubscribers == _twitter.Observers.Count;
+		assert expectedAmountOfSubscribers == _twitter.getObservers().size();
 	}
 
 //C# TO JAVA CONVERTER TODO TASK: Java annotations will not correspond to .NET attributes:
@@ -135,10 +132,8 @@ public class Tests
 		//event is called directly by the assertion
 
 		//then
-		Assert.<SubscriberAlreadyExistsException>Throws(() ->
-		{
-				_twitter.Subscribe(followersDuplicate);
-		});
+
+		assertThrows(SubscriberAlreadyExistsException.class, () -> _twitter.Subscribe(followersDuplicate));
 	}
 
 //C# TO JAVA CONVERTER TODO TASK: Java annotations will not correspond to .NET attributes:
@@ -154,7 +149,7 @@ public class Tests
 		_twitter.Unsubscribe(followers.get(10));
 
 		//then
-		assert followers.size() == _twitter.Observers.Count - 1;
+		assert followers.size() == _twitter.getObservers().size() - 1;
 	}
 
 //C# TO JAVA CONVERTER TODO TASK: Java annotations will not correspond to .NET attributes:
@@ -169,10 +164,7 @@ public class Tests
 		//event is called directly by the assertion
 
 		//then
-		Assert.<EmptyListOfSubscribersException>Throws(() ->
-		{
-				_twitter.Unsubscribe(followerToRemove);
-		});
+		assertThrows(EmptyListOfSubscribersException.class, () -> _twitter.Unsubscribe(followerToRemove));
 	}
 
 //C# TO JAVA CONVERTER TODO TASK: Java annotations will not correspond to .NET attributes:
@@ -188,10 +180,7 @@ public class Tests
 		//event is called directly by the assertion
 
 		//then
-		Assert.<SubscriberNotFoundException>Throws(() ->
-		{
-				_twitter.Unsubscribe(followerNotFound);
-		});
+		assertThrows(SubscriberNotFoundException.class, () -> _twitter.Unsubscribe(followerNotFound));
 	}
 
 //C# TO JAVA CONVERTER TODO TASK: There is no preprocessor in Java:
