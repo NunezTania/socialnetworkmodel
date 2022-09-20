@@ -1,8 +1,10 @@
 package socialnetworkmodel.testsocialnetworkmodel;
+import org.junit.jupiter.api.BeforeEach;
 import socialnetworkmodel.*;
 
 import java.util.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
 
 
 //C# TO JAVA CONVERTER TODO TASK: Java annotations will not correspond to .NET attributes:
@@ -17,6 +19,7 @@ public class Tests
 
 //C# TO JAVA CONVERTER TODO TASK: Java annotations will not correspond to .NET attributes:
 //ORIGINAL LINE: [SetUp] public void Setup()
+	@BeforeEach
 	public final void Setup()
 	{
 		_twitter = new Twitter();
@@ -24,6 +27,7 @@ public class Tests
 
 //C# TO JAVA CONVERTER TODO TASK: Java annotations will not correspond to .NET attributes:
 //ORIGINAL LINE: [Test] public void Observers_AfterInstanciationWithoutObservers_Succes()
+	@Test
 	public final void Observers_AfterInstanciationWithoutObservers_Succes()
 	{
 		//when
@@ -40,6 +44,7 @@ public class Tests
 
 //C# TO JAVA CONVERTER TODO TASK: Java annotations will not correspond to .NET attributes:
 //ORIGINAL LINE: [Test] public void Observers_AfterInstanciationWithObservers_Succes()
+	@Test
 	public final void Observers_AfterInstanciationWithObservers_Succes()
 	{
 		//when
@@ -55,6 +60,7 @@ public class Tests
 
 //C# TO JAVA CONVERTER TODO TASK: Java annotations will not correspond to .NET attributes:
 //ORIGINAL LINE: [Test] public void Twits_AfterInstanciation_Success()
+	@Test
 	public final void Twits_AfterInstanciation_Success()
 	{
 		//when
@@ -70,6 +76,7 @@ public class Tests
 
 //C# TO JAVA CONVERTER TODO TASK: Java annotations will not correspond to .NET attributes:
 //ORIGINAL LINE: [Test] public void Notify_EmptyListOfSubscriber_ThrowsException()
+	@Test
 	public final void Notify_EmptyListOfSubscriber_ThrowsException()
 	{
 		//given
@@ -85,6 +92,7 @@ public class Tests
 
 //C# TO JAVA CONVERTER TODO TASK: Java annotations will not correspond to .NET attributes:
 //ORIGINAL LINE: [Test] public void Subscribe_AddFirstSubscribers_Success()
+	@Test
 	public final void Subscribe_AddFirstSubscribers_Success()
 	{
 		//given
@@ -101,6 +109,7 @@ public class Tests
 
 //C# TO JAVA CONVERTER TODO TASK: Java annotations will not correspond to .NET attributes:
 //ORIGINAL LINE: [Test] public void Subscribe_AddSubscribersToExistingList_Success()
+	@Test
 	public final void Subscribe_AddSubscribersToExistingList_Success()
 	{
 		//given
@@ -119,6 +128,7 @@ public class Tests
 
 //C# TO JAVA CONVERTER TODO TASK: Java annotations will not correspond to .NET attributes:
 //ORIGINAL LINE: [Test] public void Subscribe_SubscriberAlreadyExists_ThrowsException()
+	@Test
 	public final void Subscribe_SubscriberAlreadyExists_ThrowsException()
 	{
 		//given
@@ -138,6 +148,7 @@ public class Tests
 
 //C# TO JAVA CONVERTER TODO TASK: Java annotations will not correspond to .NET attributes:
 //ORIGINAL LINE: [Test] public void Unsubscribe_NominalCase_Success()
+	@Test
 	public final void Unsubscribe_NominalCase_Success()
 	{
 		//given
@@ -149,11 +160,12 @@ public class Tests
 		_twitter.Unsubscribe(followers.get(10));
 
 		//then
-		assert followers.size() == _twitter.getObservers().size() - 1;
+		assert followers.size() == _twitter.getObservers().size() + 1;
 	}
 
 //C# TO JAVA CONVERTER TODO TASK: Java annotations will not correspond to .NET attributes:
 //ORIGINAL LINE: [Test] public void Unsubscribe_EmptyListOfSubscriber_ThrowsException()
+	@Test
 	public final void Unsubscribe_EmptyListOfSubscriber_ThrowsException()
 	{
 		//given
@@ -169,6 +181,7 @@ public class Tests
 
 //C# TO JAVA CONVERTER TODO TASK: Java annotations will not correspond to .NET attributes:
 //ORIGINAL LINE: [Test] public void Unsubscribe_SubscriberNotFound_ThrowsException()
+	@Test
 	public final void Unsubscribe_SubscriberNotFound_ThrowsException()
 	{
 		//given

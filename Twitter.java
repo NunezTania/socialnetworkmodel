@@ -17,26 +17,24 @@ public class Twitter implements IObservable
 
 	public Twitter(ArrayList<IObserver> observers)
 	{
-		_observers = observers;
+		_observers.addAll(observers);
 	}
 
-	public final ArrayList<IObserver> getObservers()
-	{
-		return _observers;
-	}
+	public final ArrayList<IObserver> getObservers() { return new ArrayList<>(_observers); }
 
 	public final ArrayList<String> getTwits()
 	{
-		return _twits;
+		return new ArrayList<>(_twits);
 	}
 
 	/** 
 	 This method is designed to trigger update to each subscriber
-
 	*/
 	public final void Notify()
 	{
-		for(IObserver observer : _observers)
+		if (_observers.isEmpty())
+			throw new EmptyListOfSubscribersException();
+		for (IObserver observer : _observers)
 		{
 			observer.Update(this);
 		}
@@ -46,14 +44,21 @@ public class Twitter implements IObservable
 	 This method is designed to add a subscriber in the list of observers
 	 
 	 @param observers Observers to add to the list of observers
-
+	 @exception SubscriberAlreadyExistsException
 	*/
 	public final void Subscribe(ArrayList<IObserver> observers)
 	{
-
-		for(IObserver observer : observers)
+		if (observers != null)
 		{
-			_observers.add(observer);
+			if (observers.size() > 0)
+			{
+				for (IObserver observer : observers)
+				{
+					if (_observers.contains(observer))
+						throw new SubscriberAlreadyExistsException();
+					_observers.add(observer);
+				}
+			}
 		}
 	}
 
@@ -64,7 +69,10 @@ public class Twitter implements IObservable
 	*/
 	public final void Unsubscribe(IObserver observer)
 	{
-
+		if (_observers.size() == 0)
+			throw new EmptyListOfSubscribersException();
+		if (!_observers.contains(observer))
+			throw new SubscriberNotFoundException();
 		_observers.remove(observer);
 	}
 
@@ -80,7 +88,6 @@ public class Twitter implements IObservable
 
 	public final String getLastTwit()
 	{
-
 		return _twits.get(_twits.size() - 1);
 	}
 
@@ -88,15 +95,9 @@ public class Twitter implements IObservable
 		///#region private methods
 	private boolean Exists(IObserver followerToFind)
 	{
-
-		for(IObserver follower : _observers)
-		{
-			if (follower == followerToFind)
-			{
-				return true;
-			}
-		}
-		return false;
+		if (_observers.isEmpty())
+			throw new EmptyListOfSubscribersException();
+		return _observers.contains(followerToFind);
 	}
 //C# TO JAVA CONVERTER TODO TASK: There is no preprocessor in Java:
 		///#endregion private methods

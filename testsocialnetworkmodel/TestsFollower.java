@@ -1,6 +1,4 @@
-package testsocialnetworkmodel;
-
-import NUnit.Framework.*;
+package socialnetworkmodel.testsocialnetworkmodel;
 
 public class TestsFollower
 {
