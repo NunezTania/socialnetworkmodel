@@ -17,72 +17,86 @@ public class Twitter implements IObservable
 
 	public Twitter(ArrayList<IObserver> observers)
 	{
-		throw new UnsupportedOperationException();
+		_observers = observers;
 	}
 
 	public final ArrayList<IObserver> getObservers()
 	{
-		throw new UnsupportedOperationException();
+		return _observers;
 	}
 
 	public final ArrayList<String> getTwits()
 	{
-		throw new UnsupportedOperationException();
+		return _twits;
 	}
 
 	/** 
 	 This method is designed to trigger update to each subscriber
-	 
-	 @exception NotImplementedException
+
 	*/
 	public final void Notify()
 	{
-		throw new UnsupportedOperationException();
+		for(IObserver observer : _observers)
+		{
+			observer.Update(this);
+		}
 	}
 
 	/** 
 	 This method is designed to add a subscriber in the list of observers
 	 
 	 @param observers Observers to add to the list of observers
-	 @exception NotImplementedException
+
 	*/
 	public final void Subscribe(ArrayList<IObserver> observers)
 	{
-		throw new UnsupportedOperationException();
+
+		for(IObserver observer : observers)
+		{
+			_observers.add(observer);
+		}
 	}
 
 	/** 
 	 This method is designed to remove a subscriber from the existing list of observers
 	 
 	 @param observer Observer to remove from the list of observers
-	 @exception NotImplementedException
 	*/
 	public final void Unsubscribe(IObserver observer)
 	{
-		throw new UnsupportedOperationException();
+
+		_observers.remove(observer);
 	}
 
 	/** 
 	 This method is designed to post a twit
 	 
 	 @param twit Twit to post
-	 @exception NotImplementedException
 	*/
 	public final void Post(String twit)
 	{
-		throw new UnsupportedOperationException();
+		_twits.add(twit);
 	}
 
 	public final String getLastTwit()
 	{
-		throw new UnsupportedOperationException();
+
+		return _twits.get(_twits.size() - 1);
 	}
 
 //C# TO JAVA CONVERTER TODO TASK: There is no preprocessor in Java:
 		///#region private methods
 	private boolean Exists(IObserver followerToFind)
 	{
-		throw new UnsupportedOperationException();
+
+		for(IObserver follower : _observers)
+		{
+			if (follower == followerToFind)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 //C# TO JAVA CONVERTER TODO TASK: There is no preprocessor in Java:
 		///#endregion private methods
